@@ -153,7 +153,7 @@ class SPIB(nn.Module):
         super(SPIB, self).__init__()
 
         self.SlayerNorm = nn.LayerNorm(dim, eps=1e-6)
-        self.CSAttention = DSSA(dim)
+        self.dssa = DSSA(dim)
 
         self.ElayerNorm = nn.LayerNorm(dim, eps=1e-6)
         self.pcfn = PCFN(dim)
@@ -162,7 +162,7 @@ class SPIB(nn.Module):
 
         h = x
         x = self.SlayerNorm(x)
-        x = self.CSAttention(x)
+        x = self.dssa(x)
         x = h + x
 
         h = x
